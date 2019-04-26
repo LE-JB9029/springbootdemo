@@ -1,0 +1,8 @@
+  ______   .______          ___      .__   __.   _______  _______
+ /  __  \  |   _  \        /   \     |  \ |  |  /  _____||   ____|
+|  |  |  | |  |_)  |      /  ^  \    |   \|  | |  |  __  |  |__
+|  |  |  | |      /      /  /_\  \   |  . `  | |  | |_ | |   __|
+|  `--'  | |  |\  \----./  _____  \  |  |\   | |  |__| | |  |____
+ \______/  | _| `._____/__/     \__\ |__| \__|  \______| |_______|
+${AnsiColor.BLUE}${AnsiBackground.YELLOW}${AnsiBackground.DEFAULT}${AnsiColor.DEFAULT}
+${AnsiColor.GREEN}Powered by ${spring-boot.formatted-version}${AnsiColor.DEFAULT}

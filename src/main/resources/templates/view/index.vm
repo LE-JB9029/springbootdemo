@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .main {
+            width: 800px;
+            height: 400px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .slave {
+            position: absolute;
+            background: antiquewhite;
+            margin: auto;
+            display: none;
+            top: 20%;
+            left: 45%;
+            z-index: 10;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: black;
+            opacity: 0.8;
+            z-index: 9;
+        }
+
+        .message {
+            position: absolute;
+            background: antiquewhite;
+            margin: auto;
+            display: none;
+            top: 10%;
+            left: 45%;
+            z-index: 10;
+        }
+
+        table {
+            width: 100%;
+            margin: 5px;
+            overflow-x: hidden;
+        }
+
+        table thead {
+            height: 30px;
+        }
+
+        table tbody {
+            overflow-y: auto;
+        }
+
+        table tr {
+            height: 20px;
+            padding: 5px;
+        }
+
+        table .button {
+            background: burlywood;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div class="main">
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>code</th>
+            <th>name</th>
+            <th>
+                operate(
+                <a href="javascript:void(0);" onclick="add_()">新增</a>
+                )
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            #foreach($obj in $list)
+            <tr>
+                <td>$obj.id</td>
+                <td>$obj.code</td>
+                <td>$obj.name</td>
+                <td>
+                    <a href="javascript:void(0);" onclick="edit_($obj.id)">修改</a>
+                    &nbsp;|&nbsp;
+                    <a href="javascript:void(0);" onclick="delete_($obj.id)">删除</a>
+                </td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+</div>
+<div class="slave">
+    <form>
+        <table>
+            <tbody>
+            <tr>
+                <td>id:</td>
+                <td colspan="3">
+                    <input name="id" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>code:</td>
+                <td colspan="3">
+                    <input name="code" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>name:</td>
+                <td colspan="3">
+                    <input name="name" value="">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <span class="button" onclick="save()">保存</span>
+                    &nbsp;&nbsp;
+                    <span class="button" onclick="cancel()">取消</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="background"></div>
+<div class="message"></div>
+</body>
+<script src="$!{require_static_url}/info/js/jquery.min.js"></script>
+<script>
+    function add_() {
+        $(".slave input[name='id']").hide();
+        $("form")[0].reset();
+        showBackground(true);
+    }
+
+    function edit_(id) {
+        if (id == undefined || id == '') {
+            message("id不能为空！");
+            return;
+        }
+        $.post("/view/getById", {"id": id}, function (res) {
+            if (res && res.status == 'success' && res.data) {
+                showBackground(true);
+                $(".slave input[name='id']").show();
+                $(".slave input[name='id']").val(res.data.id);
+                $(".slave input[name='code']").val(res.data.code);
+                $(".slave input[name='name']").val(res.data.name);
+            } else {
+                message("获取对象失败！", "error", true);
+            }
+        })
+    }
+
+    function delete_(id) {
+        if (id == undefined || id == '') {
+            message("id不能为空！");
+            return;
+        }
+        if (confirm("确认删除[id=" + id + "]")) {
+            $.post("/view/deleteById", {"id": id}, function (res) {
+                if (res && res.status == 'success') {
+                    message("删除成功！", "success", true);
+                    reload(id, "delete");
+                } else {
+                    message("删除失败！", "error", true);
+                }
+            });
+        }
+    }
+
+    function reload(obj, flag) {
+        var bool = true;
+        $(".main tbody tr").each(function () {
+            var b = $(this).children()[0].innerHTML == (obj.id ? obj.id : obj);
+            if (b) {
+                bool = false;
+                if (flag == "add") {
+                    $(this).children()[1].innerHTML = obj.code;
+                    $(this).children()[2].innerHTML = obj.name;
+                } else {
+                    $(this).remove();
+                }
+                return;
+            }
+        })
+        if (bool) {
+            var html = "<tr>\n" +
+                    "    <td>" + obj.id + "</td>\n" +
+                    "    <td>" + obj.code + "</td>\n" +
+                    "    <td>" + obj.name + "</td>\n" +
+                    "    <td>\n" +
+                    "        <a href=\"javascript:void(0);\" onclick=\"edit_(" + obj.id + ")\">修改</a>\n" +
+                    "        &nbsp;|&nbsp;\n" +
+                    "        <a href=\"javascript:void(0);\" onclick=\"delete_(" + obj.id + ")\">删除</a>\n" +
+                    "    </td>\n" +
+                    "</tr>"
+            $(".main tbody").append(html);
+        }
+    }
+
+    function showBackground(flag) {
+        if (flag) {
+            $(".slave,.background").show();
+        } else {
+            $(".slave,.background").hide();
+        }
+    }
+
+    function save() {
+        $.post("/view/save", $("form").serialize(), function (res) {
+            if (res && res.status == 'success') {
+                message("保存成功！", "success", true);
+                reload(res.data, "add");
+            } else {
+                message("保存失败！", "error", true);
+            }
+        });
+        showBackground();
+    }
+
+    function cancel() {
+        showBackground();
+    }
+
+    function message(content, status, flag) {
+        $(".message").html(content);
+        var color = status == 'success' ? "green" : status == "error" ? "red" : "orange";
+        $(".message").css("color", color);
+        $(".message").show();
+        if (!flag) {
+            $(".message").on("click", function () {
+                $(this).hide();
+            })
+        } else {
+            setTimeout(function () {
+                $(".message").hide();
+            }, 2000);
+        }
+    }
+</script>
+</html>
