@@ -1,4 +1,4 @@
-package com.demo.filter;
+package com.demo.common.filter;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

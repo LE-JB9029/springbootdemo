@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://hc.supconit.com/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.test.dao.PcDataDao">
+    <resultMap id="PcDataResultMap" type="com.demo.test.domain.PcData">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <sql id="table_name">pc_data</sql>
+
+    <sql id="SEARCH_CONDITION_SQL">
+        <where>
+            <if test="id != null">
+                AND id = #{id, jdbcType=NUMERIC}
+            </if>
+            <if test="name != null and name != ''">
+                AND name like "%" + #{name, jdbcType=VARCHAR} +"%"
+            </if>
+        </where>
+    </sql>
+
+    <insert id="insert" parameterType="com.demo.test.domain.PcData" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        <include refid="table_name"/>
+        (
+        name
+        )
+        values
+        (
+        #{name, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <insert id="update" parameterType="com.demo.test.domain.PcData">
+        update
+        <include refid="table_name"/>
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name, jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id, jdbcType=NUMERIC}
+    </insert>
+
+    <select id="getById" resultMap="PcDataResultMap" parameterType="java.lang.Long">
+        select * from
+        <include refid="table_name"/>
+        where id = #{id, jdbcType=NUMERIC}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from
+        <include refid="table_name"/>
+        where id = #{id, jdbcType=NUMERIC}
+    </delete>
+
+    <select id="findAll" resultMap="PcDataResultMap" parameterType="com.demo.test.domain.PcData">
+        select * from
+        <include refid="table_name"/>
+        <include refid="SEARCH_CONDITION_SQL"/>
+    </select>
+
+</mapper>

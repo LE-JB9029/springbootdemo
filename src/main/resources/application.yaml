@@ -7,43 +7,65 @@ spring:
       charset: UTF-8
       enabled: true
   resources:
-        static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${file.file-path-prefix}
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${file.file-path-prefix}
   datasource:
-      type: com.alibaba.druid.pool.DruidDataSource
-      driver-class-name: com.mysql.jdbc.Driver
-      max-idle: 10
-      max-wait: 10000
-      min-idle: 5
-      initial-size: 5
-      filters: stat,wall,log4j
-      poolPreparedStatements: true
-      maxPoolPreparedStatementPerConnectionSize: 20
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 10
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      filter: stat,wall #,log4j
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
 server:
   port: 8080
   session-timeout: 30
   tomcat:
-      uri-encoding: UTF-8
+    uri-encoding: UTF-8
 mybatis:
-    mapper-locations: classpath:/mybatis/**/*Mapper.xml
+  mapper-locations: classpath:/mybatis/**/*Mapper.xml
 velocity:
-    attributes:
-      _application_static_url:
-      require_static_url: /static
+  attributes:
+    _application_static_url:
+    require_static_url: /static
 ---
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://192.168.137.130:3306/test?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: root
+    druid:
+      first: #数据源1（默认）
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.137.130:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: root
+      second: #数据源2
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.137.130:3306/quartz_data?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: root
 file:
   file-path-prefix: E:/xheq/file/
 ---
 spring:
   profiles: prod
   datasource:
-    url: jdbc:mysql://localhost:3306/xhitd02_business?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: root
+    druid:
+      first: #数据源1（默认）
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.137.130:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: root
+      second: #数据源2
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.137.130:3306/quartz_data?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: root
 file:
   file-path-prefix: D:/xheq/file/

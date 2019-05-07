@@ -1,12 +1,15 @@
-package com.demo.test.mapper;
+package com.demo.test.dao;
 
+import com.demo.common.datasources.DataSourceNames;
+import com.demo.common.datasources.annotation.DataSource;
 import com.demo.test.domain.Data;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
-public interface DataMapper {
+@DataSource(name = DataSourceNames.FIRST)
+public interface DataDao {
     int insert(Data condition);
 
     int update(Data condition);

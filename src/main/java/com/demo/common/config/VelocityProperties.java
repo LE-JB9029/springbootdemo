@@ -1,4 +1,4 @@
-package com.demo.config;
+package com.demo.common.config;
 
 
 import org.springframework.boot.autoconfigure.template.AbstractTemplateViewResolverProperties;

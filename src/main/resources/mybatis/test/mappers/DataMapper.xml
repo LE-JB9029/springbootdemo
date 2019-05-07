@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://hc.supconit.com/mybatis-3-mapper.dtd">
-<mapper namespace="com.demo.test.mapper.DataMapper">
+<mapper namespace="com.demo.test.dao.DataDao">
     <resultMap id="DataResultMap" type="com.demo.test.domain.Data">
         <id property="id" column="id"/>
         <result property="code" column="code"/>

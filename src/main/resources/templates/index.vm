@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标题</title>
+    <link rel="stylesheet" href="$!{rc.contextPath}/css/style.css"/>
+</head>
+<body>
+<div class="main">
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>code</th>
+            <th>name</th>
+            <th>
+                operate(
+                <a href="javascript:void(0);" onclick="add_()">新增</a>
+                )
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            #foreach($obj in $list)
+            <tr>
+                <td>$obj.id</td>
+                <td>$obj.code</td>
+                <td>$obj.name</td>
+                <td>
+                    <a href="javascript:void(0);" onclick="edit_($obj.id)">修改</a>
+                    &nbsp;|&nbsp;
+                    <a href="javascript:void(0);" onclick="delete_($obj.id)">删除</a>
+                </td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+</div>
+<div class="slave">
+    <form id="form_">
+        <table>
+            <tbody>
+            <tr>
+                <td>id:</td>
+                <td colspan="3">
+                    <input name="id" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>code:</td>
+                <td colspan="3">
+                    <input name="code">
+                </td>
+            </tr>
+            <tr>
+                <td>name:</td>
+                <td colspan="3">
+                    <input name="name">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <span class="button" onclick="save_()">保存</span>
+                    &nbsp;&nbsp;
+                    <span class="button" onclick="cancel_()">取消</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="main1">
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>
+                operate(
+                <a href="javascript:void(0);" onclick="add__()">新增</a>
+                )
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            #foreach($obj in $list1)
+            <tr>
+                <td>$obj.id</td>
+                <td>$obj.name</td>
+                <td>
+                    <a href="javascript:void(0);" onclick="edit__($obj.id)">修改</a>
+                    &nbsp;|&nbsp;
+                    <a href="javascript:void(0);" onclick="delete__($obj.id)">删除</a>
+                </td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+</div>
+<div class="slave1">
+    <form id="form__">
+        <table>
+            <tbody>
+            <tr>
+                <td>id:</td>
+                <td colspan="3">
+                    <input name="id" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>name:</td>
+                <td colspan="3">
+                    <input name="name">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <span class="button" onclick="save__()">保存</span>
+                    &nbsp;&nbsp;
+                    <span class="button" onclick="cancel__()">取消</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="background"></div>
+<div class="message"></div>
+</body>
+<script type="text/javascript" src="$!{rc.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript" src="$!{rc.contextPath}/js/index/main.js"></script>
+<script type="text/javascript" src="$!{rc.contextPath}/js/index/table1.js"></script>
+<script type="text/javascript" src="$!{rc.contextPath}/js/index/table2.js"></script>
+<script>
+    var contextPath = "$!{rc.contextPath}";
+</script>
+</html>

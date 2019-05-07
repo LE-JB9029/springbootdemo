@@ -1,11 +1,11 @@
 package com.demo.test.service;
 
-
 import com.demo.test.domain.Data;
 
 import java.util.List;
 
 public interface DataService {
+
     int insert(Data condition);
 
     int update(Data condition);
