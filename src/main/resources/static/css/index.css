@@ -8,6 +8,8 @@ body {
     height: 400px;
     margin: auto;
     text-align: center;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .slave {
@@ -25,6 +27,8 @@ body {
     height: 400px;
     margin: auto;
     text-align: center;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .slave1 {

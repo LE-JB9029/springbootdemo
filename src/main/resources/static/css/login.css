@@ -1,0 +1,227 @@
+﻿body, form, div {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    text-align: center;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+/*-----------------------------背景图片部分-----------------------------*/
+body {
+    background: url('/img/login/bg.png') top left;
+}
+
+/*-----------------------------codrops-top部分-----------------------------*/
+.codrops-top {
+    line-height: 24px;
+    font-size: 11px;
+    background: white;
+    opacity: 0.9;
+    z-index: 9999;
+    position: relative;
+}
+
+.codrops-top a {
+    padding: 0px 10px;
+    letter-spacing: 1px;
+    color: black;
+    display: block;
+    float: left;
+    cursor: pointer;
+}
+
+.codrops-top a:hover {
+    color: #6cf;
+}
+
+/*-----------------------------title部分-----------------------------*/
+.title {
+    width: 500px;
+    margin: 0 auto 10px auto;
+    padding: 20px 30px 10px 30px;
+}
+
+.title h1 {
+    background: url('/img/login//bad Apple!!.png') no-repeat;
+    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+    font-size: 35px;
+    line-height: 35px;
+    position: relative;
+    font-weight: 400;
+    color: black;
+    opacity: 0.9;
+    text-align: left;
+    padding: 111px 0px 110px 281px;
+    margin: 0;
+    cursor: pointer;
+}
+
+/*-----------------------------body部分-----------------------------*/
+#body {
+    text-align: left;
+    padding: 0;
+    margin: 0 auto;
+}
+
+/*-----------------------------wrapper部分-----------------------------*/
+#wrapper {
+    position: relative;
+    width: 500px;
+    min-height: 560px;
+    margin: 0px auto;
+}
+
+/*-----------------------------login&register相同部分-----------------------------*/
+.box {
+    position: absolute;
+    width: 450px;
+    border: 5px solid #8AC1DB;
+    background: #E8F3F8;
+    margin: 10px auto;
+    padding: 20px;
+}
+
+.box h1 {
+    padding: 5px 0 30px 0;
+    margin: 0;
+    font-family: 'FranchiseRegular', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 48px;
+    text-align: center;
+}
+
+.box label {
+    text-align: left;
+    font-family: Calibri;
+    font-size: 20px;
+}
+
+.box .text {
+    height: 20px;
+    width: 90%;
+    padding: 5px 5px 5px 32px;
+}
+
+.box .button {
+    width: 30%;
+    cursor: pointer;
+    background: rgb(61, 157, 179);
+    padding: 8px 5px;
+    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+    color: #fff;
+    font-size: 24px;
+    border: 1px solid rgb(28, 108, 122);
+    margin-bottom: 10px;
+}
+
+.box .bottom {
+    font-size: 16px;
+    text-align: right;
+    border-top: 1px solid rgb(219, 229, 232);
+}
+
+.box a {
+    display: inline-block;
+    font-weight: bold;
+    background: rgb(247, 248, 241);
+    padding: 2px 6px;
+    color: rgb(29, 162, 193);
+    margin-left: 10px;
+    border-radius: 4px;
+    border: 1px solid rgb(203, 213, 214);
+}
+
+/*-----------------------------ico部分-----------------------------*/
+#login_username, #signup_username {
+    background: url('/img/login//user.png') no-repeat;
+}
+
+#login_pwd, #signup_pwd, #signup_checkpwd {
+    background: url('/img/login//pwd.png') no-repeat;
+}
+
+#signup_usermail {
+    background: url('/img/login//mail.png') no-repeat;
+}
+
+/*-----------------------------to_top-----------------------------*/
+.to_top {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+}
+
+.to_top a {
+    background: url('/img/login//top.png') no-repeat;
+    padding: 0 20px 20px 20px;
+}
+
+/*-----------------------------pic_wall-----------------------------*/
+.pic_wall {
+    background: #300;
+    width: 1900px;
+    margin: auto;
+    text-align: center;
+}
+
+.pic_wall h1 {
+    color: white;
+    font-size: 48px;
+    padding: 4px;
+    margin: 5px;
+}
+
+.pic_wall .ads {
+    border: 1px solid #ddd;
+    width: 1566px;
+    height: 990px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.pic_wall li {
+    list-style-type: none;
+    width: 1566px;
+    height: 990px;
+    padding: 0;
+    margin: 0;
+}
+
+.pic_wall img {
+    background: white;
+    padding: 10px;
+    border: 5px solid gray;
+    margin: 0;
+    cursor: pointer;
+}

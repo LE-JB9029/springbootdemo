@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://hc.supconit.com/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demo.test.dao.DataDao">
     <resultMap id="DataResultMap" type="com.demo.test.domain.Data">
         <id property="id" column="id"/>
@@ -7,7 +7,7 @@
         <result property="name" column="name"/>
     </resultMap>
 
-    <sql id="table_name">data</sql>
+    <sql id="table_name">`data`</sql>
 
     <sql id="SEARCH_CONDITION_SQL">
         <where>
@@ -15,10 +15,10 @@
                 AND id = #{id, jdbcType=NUMERIC}
             </if>
             <if test="code != null and code != ''">
-                AND code like "%" + #{code, jdbcType=VARCHAR} +"%"
+                AND code like concat("%", #{code, jdbcType=VARCHAR}, "%")
             </if>
             <if test="name != null and name != ''">
-                AND name like "%" + #{name, jdbcType=VARCHAR} +"%"
+                AND `name` like concat("%", #{name, jdbcType=VARCHAR}, "%")
             </if>
         </where>
     </sql>
@@ -28,7 +28,7 @@
         <include refid="table_name"/>
         (
         code,
-        name
+        `name`
         )
         values
         (
@@ -37,7 +37,7 @@
         )
     </insert>
 
-    <insert id="update" parameterType="com.demo.test.domain.Data">
+    <update id="update" parameterType="com.demo.test.domain.Data">
         update
         <include refid="table_name"/>
         <set>
@@ -45,11 +45,11 @@
                 code = #{code, jdbcType=VARCHAR},
             </if>
             <if test="name != null and name != ''">
-                name = #{name, jdbcType=VARCHAR},
+                `name` = #{name, jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id, jdbcType=NUMERIC}
-    </insert>
+    </update>
 
     <select id="getById" resultMap="DataResultMap" parameterType="java.lang.Long">
         select * from

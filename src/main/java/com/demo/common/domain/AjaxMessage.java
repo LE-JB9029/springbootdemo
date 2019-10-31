@@ -1,4 +1,4 @@
-package com.demo.test.domain;
+package com.demo.common.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

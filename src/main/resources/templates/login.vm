@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login_Registration Form</title>
+    <link rel="stylesheet" href="$!{rc.contextPath}/css/login.css"/>
+    <style>
+        .message {
+            position: absolute;
+            background: antiquewhite;
+            margin: auto;
+            display: none;
+            top: 10%;
+            left: 45%;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="codrops-top">
+        <a href="javascript:void(0);">
+            <strong>-Le fruit de la GRISAIA-</strong>
+        </a>
+        <span class="right">
+                <a href="http://www.baidu.com" target="_blank">
+                    <strong>有啥不会，百度一下</strong>
+                </a>
+            </span>
+        <div class="clear"></div>
+    </div>
+    <!--标题-->
+    <div class="title">
+        <h1>Bad Apple!!</h1>
+    </div>
+    <!--主体-->
+    <div id="body">
+        <div id="wrapper">
+            <div id="login" class="box show">
+                <form>
+                    <h1>LOG IN</h1>
+                    <p>
+                        <label for="login_username">用户名：</label>
+                        <input class="text" id="login_username" placeholder="myusername or mymail@mail.com"
+                               required="required" type="text" name="username"/>
+                    </p>
+                    <p>
+                        <label for="login_pwd">密码：</label>
+                        <input class="text" id="login_pwd" placeholder="eg:123456" required="required" type="password"
+                               name="password"/>
+                    </p>
+                    <p>
+                        <input class="button right" type="button" value="Login" onclick="logIn();"/>
+                    </p>
+                    <p class="clear"></p>
+                    <p class="bottom">Not a member yet ?<a onclick="showRegister();">Join us</a></p>
+                </form>
+            </div>
+
+            <div id="register" class="box hide">
+                <form>
+                    <h1>SIGN UP</h1>
+                    <p>
+                        <label for="signup_username">用户名：</label>
+                        <input class="text" id="signup_username" placeholder="myUsername" required="required"
+                               type="text" name="username"/>
+                    </p>
+                    <p>
+                        <label for="signup_usermail">邮箱：</label>
+                        <input class="text" id="signup_usermail" placeholder="myMail@mail.com" required="required"
+                               type="text" name="email"/>
+                    </p>
+                    <p>
+                        <label for="signup_pwd">密码：</label>
+                        <input class="text" id="signup_pwd" placeholder="eg:123456" required="required"
+                               type="password" name="password"/>
+                    </p>
+                    <p>
+                        <label for="signup_checkpwd">确认密码：</label>
+                        <input class="text" id="signup_checkpwd" placeholder="eg:123456" required="required"
+                               type="password"/>
+                    </p>
+                    <p>
+                        <input class="button right" type="button" value="Sign up" onclick="register();"/>
+                    </p>
+                    <p class="clear"></p>
+                    <p class="bottom">Already a member ?<a onclick="showLogin();">Go and login</a></p>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!--top-->
+    <div class="to_top hide"><a href="javascript:void(0);" onclick="toTop"></a></div>
+</div>
+<div class="message"></div>
+</body>
+<script type="text/javascript" src="$!{rc.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript" src="$!{rc.contextPath}/js/index/main.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(window).scroll(function () {
+            var scrollTop = document.documentElement.scrollTop;
+            if (scrollTop > 50) {
+                $(".to_top").removeClass("hide").addClass("show");
+            } else {
+                $(".to_top").removeClass("show").addClass("hide");
+            }
+        });
+    });
+
+    function toTop() {
+        $("html,body").animate({scrollTop: 0}, 100);
+    }
+
+    function showLogin() {
+        $("#login").removeClass("hide").addClass("show");
+        $("#register").removeClass("show").addClass("hide");
+    }
+
+    function showRegister() {
+        $("#login").removeClass("show").addClass("hide");
+        $("#register").removeClass("hide").addClass("show");
+    }
+
+    function logIn() {
+        var url = "$!{rc.contextPath}/login/login";
+        $.post(
+                url,
+                $("#login form").serialize(),
+                function (res) {
+                    if (res && res.status == 'success') {
+                        window.location = '/view/index';
+                    } else {
+                        message("登录失败！", 'error');
+                    }
+                }
+        );
+    }
+
+    function register() {
+        var val1 = $("#signup_pwd").val();
+        var val2 = $("#signup_checkpwd").val();
+        if (val1 != val2) {
+            message("密码不一致！", 'error');
+            return;
+        }
+        var url = "$!{rc.contextPath}/login/checkUsername";
+        var flag = false;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {"username": $("#signup_username").val()},
+            dataType: 'json',
+            async: false,
+            success: function (res) {
+                if (res && res.status == 'success') {
+                    flag = true;
+                }
+            }
+        });
+        if (!flag) {
+            message("username exist！", 'warn');
+            return;
+        }
+        url = "$!{rc.contextPath}/login/register";
+        $.post(
+                url,
+                $("#register form").serialize(),
+                function (res) {
+                    if (res && res.status == 'success') {
+                        $("#register form input").val("");
+                        message("注册成功！", 'error');
+                        showLogin();
+                    } else {
+                        message("注册失败！", 'error');
+                    }
+                }
+        );
+    }
+</script>
+</html>
